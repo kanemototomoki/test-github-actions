@@ -1,0 +1,20 @@
+name: 承認フロー付きワークフロー
+
+on: workflow_dispatch
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 初期処理
+        run: echo "最初の処理を実行中～！承認待ちの前の処理はここに書くよ～"
+
+  deployment:
+    needs: setup
+    runs-on: ubuntu-latest
+    environment: production  # ← ここがポイント！承認が必要な環境
+    steps:
+      - name: 承認後の処理
+        run: |
+          echo "承認された後の処理を実行中～！"
+          # ここに本当にやりたい処理を書く
